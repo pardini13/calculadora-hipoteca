@@ -1,3 +1,27 @@
+def calcular_pago_mensual(principal, tasa_anual, plazo):
+    tasa_mensual = tasa_anual / 12 / 100
+    num_pagos = plazo * 12
+    pago_mensual = principal * (tasa_mensual * (1 + tasa_mensual)**num_pagos) / ((1 + tasa_mensual)**num_pagos - 1)
+    return pago_mensual
+
+def calcular_monto_total(pago_mensual, plazo):
+    num_pagos = plazo * 12
+    monto_total = pago_mensual * num_pagos
+    return monto_total
+
+def calcular_interes_total(monto_total, principal):
+    interes_total = monto_total - principal
+    return interes_total
+
+def mostrar_cronograma(principal, tasa_anual, plazo, pago_mensual):
+    tasa_mensual = tasa_anual / 12 / 100
+    saldo = principal
+    for pago in range(1, plazo * 12 + 1):
+        interes_pago = saldo * tasa_mensual
+        principal_pago = pago_mensual - interes_pago
+        saldo -= principal_pago
+        print(f"Pago {pago}: Interés: {interes_pago:.2f}, Principal: {principal_pago:.2f}")
+
 def main():
     principal = float(input("Ingrese el monto del préstamo: "))
     tasa_anual = float(input("Ingrese la tasa de interés anual (porcentaje): "))
